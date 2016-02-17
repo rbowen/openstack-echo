@@ -7,12 +7,17 @@ To enable it on your Echo, find it in the Skills menu, and click
 it's not actually there yet.)
 
 To run your own instance, you'll need to know some things about Amazon Echo 
-skills. You'll also need to:
+skills, and you'll need an Amazon Echo developer account so that you can
+point it at your own running instance of the application.
+
+The information for this all comes from
+http://git.openstack.org/cgit/openstack/governance/tree/reference/projects.yaml 
+So, if you're running your own instance, you'll also need to:
 
 git clone https://git.openstack.org/openstack/governance
 
-before anything will work. And update that occasionally to get the
-latest information.
+inside the checkout of this repo before anything will work. And 
+you'll need to update that occasionally to get the latest information.
 
 With this skill, you can currently do two things:
 
@@ -27,6 +32,4 @@ With this skill, you can currently do two things:
     Alexa, ask openstack what is the {Project} project
     Alexa, ask openstack what the {Project} project is
 
-The information for this all comes from
-http://git.openstack.org/cgit/openstack/governance/tree/reference/projects.yaml 
 
