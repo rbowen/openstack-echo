@@ -19,6 +19,10 @@ With this skill, you can currently do two things:
 
     Alexa, ask openstack what is project {Project}
     Alexa, ask openstack to tell me about {Project}
+    Alexa, ask openstack to tell me about OpenStack {Project}
     Alexa, ask openstack what is the {Project} project
     Alexa, ask openstack what the {Project} project is
+
+The information for this all comes from
+http://git.openstack.org/cgit/openstack/governance/tree/reference/projects.yaml 
 
