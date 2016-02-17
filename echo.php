@@ -5,7 +5,7 @@ $query = json_decode( $data );
 # error_log( print_r( $query, 1 ) );
 
 $me = array(
-    'version' => '0.1',
+    'version' => '0.2',
     'name'    => 'OpenStack'
 );
 
@@ -14,7 +14,7 @@ $help = "Help Message Goes Here";
 if ( $query ) {
     $action = $query->request->intent->name;
 
-    if ( $action == "RamdomProject" ) {
+    if ( $action == "RandomProject" ) {
         $response = randomproject();
     }
 
@@ -36,14 +36,46 @@ if ( $query ) {
 }
 
 /*
-Return a random project name
+
+'Alexa, ask openstack to tell me about a random project'
+
+Returns info about a random openstack project
 */
 function randomproject() {
-    return "Sorry, that function isn't implemented yet. Check back in a day or two.";
+
+    # Yes, I'm reading the file twice. Sue me.
+    $yaml = file('./governance/reference/projects.yaml');
+    $projects = array();
+    foreach ($yaml as $line) {
+        if ( preg_match( '/^\w/', $line ) ) {
+            $projects[] = $line;
+        }
+    }
+
+    $project = $projects[ array_rand( $projects ) ];
+    $project = preg_replace( '/:\n/s', '', $project );
+    return projectinfo( $project );
+
 }
 
+/*
+
+Returns info about specifed project
+
+'Alexa, tell me about OpenStack Manilla'
+
+*/
 function getproject( $query ) {
     $project = $query->request->intent->slots->Project->value;
+    return projectinfo( $project );
+}
+
+/*
+
+Slurps info about project $project from the yaml file.
+
+*/
+function projectinfo( $project ) {
     $yaml = file_get_contents('./governance/reference/projects.yaml');
 
     # Yes, I know this is the wrong way to parse YAML. The various
