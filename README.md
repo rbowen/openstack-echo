@@ -2,8 +2,12 @@
 
 An Amazon Echo skill that knows information about OpenStack
 
-To use, you'll need to know some things about Amazon Echo skills. You'll
-also need to:
+To enable it on your Echo, find it in the Skills menu, and click
+'Enable'. (Note: This skill is currently undergoing certification, so
+it's not actually there yet.)
+
+To run your own instance, you'll need to know some things about Amazon Echo 
+skills. You'll also need to:
 
 git clone https://git.openstack.org/openstack/governance
 
