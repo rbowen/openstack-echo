@@ -11,43 +11,39 @@ $me = array(
 
 $guid = '5c33db4b-91b8-4e40-8765-b8f849de6b68';
 $userid = 'AFPPR46VI4HFCERSD2ENKTJBTCGHF6J6ERFIWCEI7GP4YDXFRBEJI';
+$help = "Help Message Goes Here";
 
 include('../validate-echo-request-php/valid_request.php');
 $valid = validate_request( $guid, $userid );
 
-$help = "Help Message Goes Here";
-
-if ( $valid['success'] )  {
-
-    if ( $query ) {
-        $action = $query->request->intent->name;
-
-        if ( $action == "RandomProject" ) {
-            $response = randomproject();
-        }
-
-        elseif ( $action == "GetProject" ) {
-            $response = getproject( $query );
-        }
-
-        elseif ( $action = 'GetHelp' ) {
-            $response = $help;
-        }
-
-        else {
-            $response = $help;
-        }
-
-        sendresponse( $response, $me );
-    } else {
-        sendresponse( $help, $me );
-    }
-
-} else {
+if ( ! $valid['success'] )  {
     error_log( 'Request failed: ' . $valid['message'] );
     die();
 }
 
+if ( $query ) {
+    $action = $query->request->intent->name;
+
+    if ( $action == "RandomProject" ) {
+        $response = randomproject();
+    }
+
+    elseif ( $action == "GetProject" ) {
+        $response = getproject( $query );
+    }
+
+    elseif ( $action = 'GetHelp' ) {
+        $response = $help;
+    }
+
+    else {
+        $response = $help;
+    }
+
+    sendresponse( $response, $me );
+} else {
+    sendresponse( $help, $me );
+}
 
 /*
 
