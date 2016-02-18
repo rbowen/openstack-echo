@@ -9,31 +9,45 @@ $me = array(
     'name'    => 'OpenStack'
 );
 
+$guid = '5c33db4b-91b8-4e40-8765-b8f849de6b68';
+$userid = 'AFPPR46VI4HFCERSD2ENKTJBTCGHF6J6ERFIWCEI7GP4YDXFRBEJI';
+
+include('../validate-echo-request-php/valid_request.php');
+$valid = validate_request( $guid, $userid );
+
 $help = "Help Message Goes Here";
 
-if ( $query ) {
-    $action = $query->request->intent->name;
+if ( $valid['success'] )  {
 
-    if ( $action == "RandomProject" ) {
-        $response = randomproject();
+    if ( $query ) {
+        $action = $query->request->intent->name;
+
+        if ( $action == "RandomProject" ) {
+            $response = randomproject();
+        }
+
+        elseif ( $action == "GetProject" ) {
+            $response = getproject( $query );
+        }
+
+        elseif ( $action = 'GetHelp' ) {
+            $response = $help;
+        }
+
+        else {
+            $response = $help;
+        }
+
+        sendresponse( $response, $me );
+    } else {
+        sendresponse( $help, $me );
     }
 
-    elseif ( $action == "GetProject" ) {
-        $response = getproject( $query );
-    }
-
-    elseif ( $action = 'GetHelp' ) {
-        $response = $help;
-    }
-
-    else {
-        $response = $help;
-    }
-
-    sendresponse( $response, $me );
 } else {
-    sendresponse( $help, $me );
+    error_log( 'Request failed: ' . $valid['message'] );
+    die();
 }
+
 
 /*
 
